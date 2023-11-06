@@ -1,0 +1,28 @@
+server:
+  port: 8300
+spring:
+  thymeleaf:
+    enabled: true
+    cache: false
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 192.168.188.128:8858
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+feign:
+  sentinel:
+    enabled: false
+  client:
+    config:
+      default:
+        loggerLevel: FULL #显示全部日志
+        readTimeout: 30000
+        connectTimeout: 10000
+logging:
+  level:
+    com.offcn.product.client: debug

@@ -1,0 +1,45 @@
+server:
+  port: 80
+spring:
+  application:
+    name: api-gateway
+  redis:
+    host: 192.168.188.128
+    port: 6379
+    database: 0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://192.168.188.128:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true  #允许使用注册发现来进行服务转发
+      routes:
+        - id: service-product-router001
+          uri: lb://service-product
+          predicates:
+            - Path=/*/product/**,/admin/product2/test/*
+        - id: web-all-router002
+          uri: http://localhost:8300
+          predicates:
+            - Host=item.omall.com,www.omall.com,list.omall.com,passport.omall.com,cart.omall.com,order.omall.com,payment.omall.com
+        - id: service-user-router
+          uri: lb://service-user
+          predicates:
+            - Path=/*/user/**
+        - id: service-cart-router
+          uri: lb://service-cart
+          predicates:
+            - Path=/*/cart/**
+        - id: service-order-router
+          uri: lb://service-order
+          predicates:
+            - Path=/*/order/**
+        - id: service-payment-router
+          uri: lb://service-payment
+          predicates:
+            - Path=/*/payment/**
+#自定义配置，需要拦截白名单
+authUrls:
+  url: trade.html,myOrder.html,list.html

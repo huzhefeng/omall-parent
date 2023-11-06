@@ -1,0 +1,12 @@
+server:
+  port: 8206
+
+spring:
+  application:
+    name: service-product
+  profiles:
+    active: dev #指定当前激活的是开发环境
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://192.168.188.128:8848  #指定nacos注册中心服务器地址

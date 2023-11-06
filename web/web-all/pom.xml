@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>web</artifactId>
+        <groupId>com.offcn</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>web-all</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <dependencies>
+<!--        依赖购物车客户端所需类库-->
+        <dependency>
+            <groupId>com.offcn</groupId>
+            <artifactId>service-cart-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.offcn</groupId>
+            <artifactId>service-item-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+<!--        商品微服务feign接口依赖包-->
+        <dependency>
+            <groupId>com.offcn</groupId>
+            <artifactId>service-product-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+<!--        依赖搜索微服务的客户端依赖库-->
+        <dependency>
+            <groupId>com.offcn</groupId>
+            <artifactId>service-list-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.offcn</groupId>
+            <artifactId>web-util</artifactId>
+            <version>1.0</version>
+        </dependency>
+<!--        引入订单服务客户端依赖库-->
+        <dependency>
+            <groupId>com.offcn</groupId>
+            <artifactId>service-order-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>web-all</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
