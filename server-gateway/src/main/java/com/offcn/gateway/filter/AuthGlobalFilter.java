@@ -164,9 +164,9 @@ public class AuthGlobalFilter implements GlobalFilter {
             String ip = jsonObject.getString("ip");
             //获取当前访问的用户ip
 
-            String curiP = IpUtil.getGatwayIpAddress(request);
+            String curIP = IpUtil.getGatwayIpAddress(request);
             //比对当前ip和redis缓存存储ip是否一致
-            if(!ip.equals(curiP)){
+            if(!ip.equals(curIP)){
                 return "-1";
             }else {
                 //把当前userId返回

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -64,4 +65,45 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     }
+
+    @Override
+    public PaymentInfo getPaymentInfo(String outTradeNo, String name) {
+        //  select * from payment_info where out_trade_no = ? and payment_type = ?
+        QueryWrapper<PaymentInfo> paymentInfoQueryWrapper = new QueryWrapper<>();
+        paymentInfoQueryWrapper.eq("out_trade_no",outTradeNo);
+        paymentInfoQueryWrapper.eq("payment_type",name);
+        return paymentInfoMapper.selectOne(paymentInfoQueryWrapper);
+    }
+
+    @Override
+    public void paySuccess(String outTradeNo, String name, Map<String, String> paramMap) {
+        //  update payment_info set trade_no=? ,payment_status = ? ,callback_time = ? where out_trade_no=? and payment_type = ?;
+        PaymentInfo paymentInfo = new PaymentInfo();
+        paymentInfo.setTradeNo(paramMap.get("trade_no"));
+        paymentInfo.setCallbackTime(new Date());
+        paymentInfo.setPaymentStatus(PaymentStatus.PAID.name());
+        paymentInfo.setCallbackContent(paramMap.toString());
+
+        //        QueryWrapper<PaymentInfo> paymentInfoQueryWrapper = new QueryWrapper<>();
+        //        paymentInfoQueryWrapper.eq("out_trade_no",outTradeNo);
+        //        paymentInfoQueryWrapper.eq("payment_type",name);
+        // 第一个参数表示啥?要更新的内容  第二个参数表示啥？
+        //  paymentInfoMapper.update(paymentInfo,paymentInfoQueryWrapper);
+        this.updatePaymentInfo(outTradeNo,name,paymentInfo);
+    }
+
+    /**
+     * 方法复用
+     * @param outTradeNo
+     * @param name
+     * @param paymentInfo
+     */
+    public void updatePaymentInfo(String outTradeNo, String name, PaymentInfo paymentInfo) {
+        QueryWrapper<PaymentInfo> paymentInfoQueryWrapper = new QueryWrapper<>();
+        paymentInfoQueryWrapper.eq("out_trade_no",outTradeNo);
+        paymentInfoQueryWrapper.eq("payment_type",name);
+        // 第一个参数表示啥?要更新的内容  第二个参数表示啥？
+        paymentInfoMapper.update(paymentInfo,paymentInfoQueryWrapper);
+    }
+
 }

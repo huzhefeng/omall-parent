@@ -5,6 +5,7 @@ import com.offcn.order.client.OrderFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,14 @@ public class PaymentController {
         model.addAttribute("orderInfo",orderInfo);
         //跳转到支付提示页模板
         return "payment/pay";
+    }
+    /**
+     * 支付成功页
+     * @return
+     */
+    @GetMapping("pay/success.html")
+    public String success() {
+        return "payment/success";
     }
 
 }
